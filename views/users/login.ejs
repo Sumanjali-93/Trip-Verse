@@ -1,0 +1,46 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+    .login-bg {
+        position: fixed;
+        inset:0;
+  background: url("/images/ocean img.jpg") no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 400px;
+  padding: 30px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+</style>
+
+<div class="login-bg">
+  <div class="login-card">
+
+    <h1 class="text-center mb-4">Login on Explore X</h1>
+
+    <form action="/login" method="POST" class="needs-validation" novalidate>
+      
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input name="username" id="username" type="text" class="form-control" required/>
+      </div>
+    
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input name="password" id="password" type="password" class="form-control" required/>
+      </div>
+
+      <button class="btn btn-light w-100 mt-3">Login</button>
+
+    </form>
+
+  </div>
+</div>
