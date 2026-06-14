@@ -282,11 +282,11 @@ trip-verse/
 
 Manual testing was performed across the following scenarios to ensure reliability:
 
-- ✅ CRUD operations validated for both authenticated and unauthenticated users
-- ✅ Authorization boundaries tested (non-owners blocked from edit/delete via direct route access)
-- ✅ Form validation tested with empty, malformed, and oversized payloads
-- ✅ Image upload tested with multiple file types and sizes
-- ✅ Session persistence verified across server restarts
+- CRUD operations validated for both authenticated and unauthenticated users
+- Authorization boundaries tested (non-owners blocked from edit/delete via direct route access)
+- Form validation tested with empty, malformed, and oversized payloads
+- Image upload tested with multiple file types and sizes
+- Session persistence verified across server restarts
 
 > Automated test coverage with Jest/Mocha + Supertest is planned — see [Roadmap](#-roadmap).
 
