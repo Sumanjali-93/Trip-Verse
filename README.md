@@ -288,8 +288,6 @@ Manual testing was performed across the following scenarios to ensure reliabilit
 - Image upload tested with multiple file types and sizes
 - Session persistence verified across server restarts
 
-> Automated test coverage with Jest/Mocha + Supertest is planned — see [Roadmap](#-roadmap).
-
 ---
 
 ## 🗺️ Roadmap
