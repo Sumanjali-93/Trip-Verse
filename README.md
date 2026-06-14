@@ -24,8 +24,10 @@
 
 - [About The Project](#-about-the-project)
 - [Key Features](#-key-features)
+- [Engineering Highlights](#-engineering-highlights)
 - [Tech Stack](#-tech-stack)
 - [System Architecture](#-system-architecture)
+- [Security & Best Practices](#-security--best-practices)
 - [Screenshots](#-screenshots)
 - [Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
@@ -34,11 +36,10 @@
   - [Running the App](#running-the-app)
 - [API Reference](#-api-reference)
 - [Folder Structure](#-folder-structure)
+- [Testing](#-testing)
 - [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
 - [License](#-license)
-- [Contact](#-contact)
-- [Acknowledgements](#-acknowledgements)
 
 ---
 
@@ -53,6 +54,20 @@ The project was built to demonstrate practical, production-style command of:
 - **Authentication & Authorization** using session-based auth
 - **Third-party service integration** (maps, cloud media storage)
 - **Server-side validation** and centralized error handling
+
+---
+
+## ⚙️ Engineering Highlights
+
+A few design decisions worth calling out for technical reviewers:
+
+- **Clean MVC separation** — Controllers contain zero data-access boilerplate; routes are thin and declarative, models encapsulate schema-level logic (e.g., cascading review deletion when a listing is removed).
+- **Async error handling at scale** — Every async route handler is wrapped via a `wrapAsync` higher-order function, so rejected promises are funneled into a single centralized error-handling middleware instead of repeated try/catch blocks.
+- **Custom error abstraction** — A dedicated `ExpressError` class standardizes HTTP status codes and messages across the app, making failure states predictable and easy to test.
+- **Schema-level data integrity** — Joi validation schemas mirror the Mongoose models, rejecting invalid payloads *before* they ever touch the database layer.
+- **Authorization middleware** — `isLoggedIn`, `isOwner`, and `isReviewAuthor` middleware enforce resource-level permissions, preventing users from editing or deleting content they don't own — even via direct API calls.
+- **Persistent sessions** — Sessions are stored in MongoDB via `connect-mongo` rather than in-memory, so users stay authenticated across server restarts and the app is horizontally scalable.
+- **Decoupled cloud storage** — Image handling is abstracted through a dedicated `cloudConfig.js`, so swapping Cloudinary for S3 or another provider requires changes in a single module.
 
 ---
 
@@ -127,6 +142,17 @@ Trip-Verse follows the **MVC (Model–View–Controller)** design pattern, keepi
    │ Models (DB)   │ │ (UI)       │  │ External APIs      │
    └──────────────┘ └────────────┘  └───────────────────┘
 ```
+
+---
+
+## 🔒 Security & Best Practices
+
+- **Password hashing** — User credentials are never stored in plaintext; Passport's local strategy handles salting and hashing via `passport-local-mongoose`.
+- **Session security** — Sessions use a signed, HTTP-only cookie with a configurable expiry and a strong `SECRET` stored in environment variables.
+- **Input sanitization & validation** — All incoming request bodies are validated against Joi schemas before reaching the database layer, mitigating injection and malformed-data attacks.
+- **Environment-based configuration** — All credentials (DB URI, API keys, secrets) are loaded via `.env` and excluded from version control through `.gitignore`.
+- **Authorization checks** — Edit/delete routes verify resource ownership server-side, not just by hiding UI buttons client-side.
+- **Flash-based feedback** — Sensitive errors are never leaked to the client; users receive sanitized, friendly flash messages instead of raw stack traces.
 
 ---
 
@@ -252,6 +278,20 @@ trip-verse/
 
 ---
 
+## 🧪 Testing
+
+Manual testing was performed across the following scenarios to ensure reliability:
+
+- ✅ CRUD operations validated for both authenticated and unauthenticated users
+- ✅ Authorization boundaries tested (non-owners blocked from edit/delete via direct route access)
+- ✅ Form validation tested with empty, malformed, and oversized payloads
+- ✅ Image upload tested with multiple file types and sizes
+- ✅ Session persistence verified across server restarts
+
+> Automated test coverage with Jest/Mocha + Supertest is planned — see [Roadmap](#-roadmap).
+
+---
+
 ## 🗺️ Roadmap
 
 - [ ] Add wishlist / save-for-later functionality
@@ -288,27 +328,6 @@ Contributions are what make the open-source community such an amazing place to l
 ## 📄 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
----
-
-## 📬 Contact
-
-**Your Name**
-
-- LinkedIn: [your-linkedin-profile](#)
-- GitHub: [@your-username](#)
-- Email: your.email@example.com
-
-Project Repository: [https://github.com/your-username/trip-verse](#)
-
----
-
-## 🙏 Acknowledgements
-
-- [Apna College](https://www.apnacollege.in/) — for the structured full-stack web development curriculum
-- [Mapbox](https://www.mapbox.com/) — for geolocation and map services
-- [Cloudinary](https://cloudinary.com/) — for media storage and delivery
-- [Shields.io](https://shields.io/) — for README badges
 
 ---
 
