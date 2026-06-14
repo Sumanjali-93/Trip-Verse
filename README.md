@@ -292,7 +292,7 @@ Manual testing was performed across the following scenarios to ensure reliabilit
 
 ---
 
-## 🗺️ Roadmap
+##
 
 - [ ] Add wishlist / save-for-later functionality
 - [ ] Integrate booking & payment gateway (Stripe / Razorpay)
