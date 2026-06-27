@@ -2,7 +2,7 @@
 
 # 🌍 Trip-Verse
 
-### A Full-Stack Travel Accommodation Booking Platform
+### A Full-Stack Travel Accommodation Planning Platform
 
 *Discover, list, and review unique stays around the world — built like a real-world Airbnb*
 
@@ -51,7 +51,7 @@ The project was built to demonstrate practical, production-style command of:
 - **MVC Architecture** for clean separation of concerns
 - **RESTful API design** with proper resource-based routing
 - **Authentication & Authorization** using session-based auth
-- **Third-party service integration** (maps, cloud media storage)
+- **Third-party service integration** (cloud media storage)
 - **Server-side validation** and centralized error handling
 
 ---
@@ -76,7 +76,6 @@ A few design decisions worth calling out for technical reviewers:
 |---|---|
 | 🔐 **Authentication & Authorization** | Secure signup, login, and logout flows using Passport.js with session-based auth |
 | 🏠 **Full CRUD for Listings** | Create, read, update, and delete property listings with ownership-based access control |
-| 🗺️ **Interactive Maps** | Real-time location visualization for every listing via Mapbox geocoding |
 | ☁️ **Cloud Image Uploads** | Multi-image upload and storage handled through Cloudinary |
 | ⭐ **Reviews & Ratings** | Users can leave star ratings and written reviews on any listing |
 | 🔎 **Category-Based Filtering** | Browse listings by category (trending, mountains, beaches, castles, etc.) |
@@ -110,7 +109,6 @@ A few design decisions worth calling out for technical reviewers:
 - Method-override, cookie-parser
 
 **Third-Party Services**
-- Mapbox — geocoding & interactive maps
 - Cloudinary — image storage, optimization & delivery
 
 ---
@@ -137,7 +135,7 @@ Trip-Verse follows the **MVC (Model–View–Controller)** design pattern, keepi
            ┌──────────────┼──────────────────┐
            ▼               ▼                  ▼
    ┌──────────────┐ ┌────────────┐  ┌───────────────────┐
-   │ Mongoose      │ │ EJS Views  │  │ Mapbox / Cloudinary│
+   │ Mongoose      │ │ EJS Views  │  │  Cloudinary│
    │ Models (DB)   │ │ (UI)       │  │ External APIs      │
    └──────────────┘ └────────────┘  └───────────────────┘
 ```
@@ -151,7 +149,6 @@ Trip-Verse follows the **MVC (Model–View–Controller)** design pattern, keepi
 - **Input sanitization & validation** — All incoming request bodies are validated against Joi schemas before reaching the database layer, mitigating injection and malformed-data attacks.
 - **Environment-based configuration** — All credentials (DB URI, API keys, secrets) are loaded via `.env` and excluded from version control through `.gitignore`.
 - **Authorization checks** — Edit/delete routes verify resource ownership server-side, not just by hiding UI buttons client-side.
-- **Flash-based feedback** — Sensitive errors are never leaked to the client; users receive sanitized, friendly flash messages instead of raw stack traces.
 
 ---
 
